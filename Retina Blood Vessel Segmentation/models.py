@@ -8,7 +8,7 @@ from keras.utils.vis_utils import plot_model as plot
 from keras.optimizers import SGD
 from keras.optimizers import *
 from keras.layers import *        
-
+import numpy as np
 
 
 def BCDU_net_D3(input_size = (256,256,1)):
@@ -38,7 +38,7 @@ def BCDU_net_D3(input_size = (256,256,1)):
     conv4_3 = Conv2D(512, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge_dense)     
     conv4_3 = Conv2D(512, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv4_3)
     drop4_3 = Dropout(0.5)(conv4_3)
-    up6 = Conv2DTranspose(256, kernel_size=2, strides=2, padding='same',kernel_initializer = 'he_normal')(drop4_3)
+    up6 = Conv2DTranspose(256, kernel_size=3, strides=2, padding='same',kernel_initializer = 'he_normal')(drop4_3)
     up6 = BatchNormalization(axis=3)(up6)
     up6 = Activation('relu')(up6)
 
@@ -50,7 +50,7 @@ def BCDU_net_D3(input_size = (256,256,1)):
     conv6 = Conv2D(256, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge6)
     conv6 = Conv2D(256, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv6)
 
-    up7 = Conv2DTranspose(128, kernel_size=2, strides=2, padding='same',kernel_initializer = 'he_normal')(conv6)
+    up7 = Conv2DTranspose(128, kernel_size=3, strides=2, padding='same',kernel_initializer = 'he_normal')(conv6)
     up7 = BatchNormalization(axis=3)(up7)
     up7 = Activation('relu')(up7)
 
@@ -62,7 +62,7 @@ def BCDU_net_D3(input_size = (256,256,1)):
     conv7 = Conv2D(128, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge7)
     conv7 = Conv2D(128, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv7)
 
-    up8 = Conv2DTranspose(64, kernel_size=2, strides=2, padding='same',kernel_initializer = 'he_normal')(conv7)
+    up8 = Conv2DTranspose(64, kernel_size=3, strides=2, padding='same',kernel_initializer = 'he_normal')(conv7)
     up8 = BatchNormalization(axis=3)(up8)
     up8 = Activation('relu')(up8)    
 
